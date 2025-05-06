@@ -173,6 +173,9 @@
     <a href="/myvideos.html">My Videos</a>
     <a href="/pixelart.html">Pixel Art</a>
     <a href="/photos.html">Photos</a>
+    <a href="https://github.com/ruputron?tab=repositories">GitHub</a>
+    <a href="https://www.youtube.com/@rupsiedaisy">YouTube</a>
+    <a href="https://www.twitch.tv/totallynotrups">Twitch</a>
     <a id="liveNowBtn" href="/live.html">&#x26AB; Checking...</a>
   </div>
 
@@ -197,6 +200,27 @@
         }
       ?>
     </div>
+  </div>
+
+  <!-- Lightbox Modal -->
+  <div id="lightbox" style="
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  ">
+    <img id="lightbox-img" src="" style="
+      width: 100vw;
+      height: auto;
+      max-height: 100vh;
+      object-fit: contain;
+      border-radius: 10px;
+      box-shadow: 0 0 20px #000;
+    " />
   </div>
 
   <script>
@@ -245,6 +269,15 @@
         btn.innerHTML = "&#10067; Error";
       }
     }
+
+    document.querySelectorAll(".grid-item img").forEach(img => {
+      img.addEventListener("click", () => {
+        const lightbox = document.getElementById("lightbox");
+        const lightboxImg = document.getElementById("lightbox-img");
+        lightboxImg.src = img.src;
+        lightbox.style.display = "flex";
+      });
+    });
 
     document.addEventListener("DOMContentLoaded", checkTwitchStatus);
 
