@@ -201,92 +201,50 @@
     <a href="/pixelart.html">Pixel Art</a>
     <a href="/photos.html">Photos</a>
     <a href="https://github.com/ruputron?tab=repositories">GitHub</a>
-    <a href="https://www.youtube.com/@rupsiedaisy">YouTube</a>
+    <a href="https://www.youtube.com/@ruputron">YouTube</a>
     <a href="https://www.twitch.tv/totallynotrups">Twitch</a>
   </div>
 
 <div class="song-list">
     <div class="song-item">
       <p>Jim Woodrow - Goodbye My Friend</p>
-      <a href="/writing/songs/Jim Woodrow - Goodbye My Friend.pdf" target="_blank">Read</a>
+      <a href="/writing/songs/Jim Woodrow - Goodbye My Friend.txt" target="_blank">Read</a>
     </div>
 
     <div class="song-item">
       <p>Jim Woodrow - If I Could Unburn Bridges</p>
-      <a href="/writing/songs/Jim Woodrow - If I Could Unburn Bridges.pdf" target="_blank">Read</a>
+      <a href="/writing/songs/Jim Woodrow - If I Could Unburn Bridges.txt" target="_blank">Read</a>
     </div>
 
     <div class="song-item">
       <p>Jim Woodrow - Someone Nicked Johnnie Walker's Bank Card</p>
-      <a href="/writing/songs/Jim Woodrow - Someone Nicked Johnnie Walker's Bank Card.pdf" target="_blank">Read</a>
+      <a href="/writing/songs/Jim Woodrow - Someone Nicked Johnnie Walker's Bank Card.txt" target="_blank">Read</a>
     </div>
 
     <div class="song-item">
       <p>Jim Woodrow - This One's For The Punks</p>
-      <a href="/writing/songs/Jim Woodrow - This One's For The Punks.pdf" target="_blank">Read</a>
+      <a href="/writing/songs/Jim Woodrow - This One's For The Punks.txt" target="_blank">Read</a>
     </div>
 
     <div class="song-item">
       <p>Jim Woodrow - Sergio The Space Between</p>
-      <a href="/writing/songs/Jim Woodrow - Sergio The Space Between.pdf" target="_blank">Read</a>
+      <a href="/writing/songs/Jim Woodrow - Sergio The Space Between.txt" target="_blank">Read</a>
     </div>
 
     <div class="song-item">
       <p>Jim Woodrow - This Song's For Tomorrow</p>
-      <a href="/writing/songs/Jim Woodrow - This Song's For Tomorrow.pdf" target="_blank">Read</a>
+      <a href="/writing/songs/Jim Woodrow - This Song's For Tomorrow.txt" target="_blank">Read</a>
     </div>
-  </div>
-</body>
-</html>
 
-  <script>
-    function loadScript(src) {
-      return new Promise((resolve, reject) => {
-        const s = document.createElement("script");
-        s.src = src;
-        s.onload = resolve;
-        s.onerror = reject;
-        document.head.appendChild(s);
-      });
-    }
+    <div class="song-item">
+      <p>Jim Woodrow - Random Truths</p>
+      <a href="/writing/songs/Jim Woodrow - Random Truths.txt" target="_blank">Read</a>
+    </div>
 
-    async function checkTwitchStatus() {
-      const btn = document.getElementById("liveNowBtn");
+    <div class="song-item">
+      <p>Jim Woodrow - Love Song 2.0</p>
+      <a href="/writing/songs/Jim Woodrow - Love Song 2.0.txt" target="_blank">Read</a>
+    </div>
 
-      try {
-        await loadScript(`/config.php?nocache=${Date.now()}`);
-        const { clientId, accessToken, channelName } = window.streamConfig || {};
-
-        if (!clientId || !accessToken || !channelName) {
-          console.error("Missing stream config values.");
-          btn.innerHTML = "&#10067; Config Error";
-          return;
-        }
-
-        const response = await fetch(`https://api.twitch.tv/helix/streams?user_login=${channelName}`, {
-          headers: {
-            "Client-ID": clientId,
-            "Authorization": `Bearer ${accessToken}`
-          }
-        });
-
-        const data = await response.json();
-        const isLive = data.data && data.data.length > 0;
-
-        if (isLive) {
-          btn.innerHTML = "&#128308; Live Now";
-          btn.classList.add("live-now");
-        } else {
-          btn.innerHTML = "&#128280; Offline";
-          btn.classList.remove("live-now");
-        }
-      } catch (err) {
-        console.error("Twitch check failed:", err);
-        btn.innerHTML = "&#10067; Error";
-      }
-    }
-
-    document.addEventListener("DOMContentLoaded", checkTwitchStatus);
-  </script>
 </body>
 </html>
