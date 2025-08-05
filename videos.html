@@ -3,12 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Pixel Art</title>
+  <title>Photos</title>
   <link rel="icon" type="image/x-icon" href="/favicon/favicon.ico" />
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       background-color: #707070;
@@ -53,9 +51,7 @@
       transition: background-color 0.3s ease;
     }
 
-    .nav-home a:hover {
-      background-color: #2e2e2e;
-    }
+    .nav-home a:hover { background-color: #2e2e2e; }
 
     .link-buttons {
       display: flex;
@@ -78,17 +74,14 @@
       flex: 1 1 200px;
     }
 
-    .link-buttons a:hover {
-      background-color: #000;
-    }
+    .link-buttons a:hover { background-color: #000; }
 
     .row {
       background-color: #828282;
       margin: 30px auto;
       padding: 20px;
       border-radius: 10px;
-      max-width: 800px;
-      text-align: left;
+      max-width: 900px;
     }
 
     .row h2 {
@@ -100,35 +93,18 @@
       color: white;
     }
 
-    .row p {
-      font-size: 1rem;
-      line-height: 1.5;
-      color: #fff;
-    }
-
-    .image-grid {
+    .video-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(112px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 10px;
       padding: 10px 0;
       justify-items: center;
     }
 
-    .grid-item img {
-      width: 112px;
-      height: 112px;
-      object-fit: contain;
+    .grid-item video {
+      width: 95%;
       border-radius: 8px;
       background-color: transparent;
-      box-shadow: 0 20px 15px rgba(0,0,0,0.2);
-      transition: transform 0.3s ease;
-      cursor: pointer;
-    }
-
-    .grid-item img:hover {
-      transform: scale(1.5);
-      z-index: 10;
-      position: relative;
     }
 
     @keyframes pulse {
@@ -143,49 +119,38 @@
     }
 
     @media (max-width: 600px) {
-      header h1 {
-        font-size: 1.6rem;
-      }
-
-      .link-buttons a {
-        padding: 10px;
-        font-size: 0.9rem;
-      }
-
-      .nav-home a {
-        padding: 8px 16px;
-        font-size: 0.9rem;
-      }
+      header h1 { font-size: 1.6rem; }
+      .link-buttons a { padding: 10px; font-size: 0.9rem; }
+      .nav-home a { padding: 8px 16px; font-size: 0.9rem; }
     }
   </style>
 </head>
-
 <body>
   <header>
     <div class="nav-home">
       <a href="/">Home</a>
     </div>
-    <h1>Pixel Art</h1>
+    <h1>Photos</h1>
   </header>
 
   <div class="link-buttons">
     <a href="/mywriting.html">My Writing</a>
     <a href="/mysongs.html">My Songs</a>
     <a href="/pixelart.html">Pixel Art</a>
-    <a href="/photos.html">Photos</a>    
-	<a href="/videos.html">Videos</a>
-	<a href="https://ibb.co/album/v1WHNX">ImgBB</a>
+    <a href="/photos.html">Photos</a>
+    <a href="/videos.html">Videos</a>
+    <a href="https://ibb.co/album/v1WHNX">ImgBB</a>
     <a href="https://github.com/ruputron?tab=repositories">GitHub</a>
     <a href="https://www.youtube.com/@ruputron">YouTube</a>
     <a href="https://www.twitch.tv/totallynotrups">Twitch</a>
   </div>
 
   <div class="row">
-    <h2>Edits And Emotes</h2>
-    <div class="image-grid">
+    <h2>Videos</h2>
+    <div class="video-grid">
       <?php
-        $directory = 'images/Emotes/';
-        $allowed_extensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+        $directory = 'videos/';
+        $allowed_extensions = ['mp4', 'mov', 'avi', 'wmv', 'mkv'];
 
         $files = array_filter(scandir($directory), function($file) use ($directory, $allowed_extensions) {
           $file_path = $directory . $file;
@@ -193,19 +158,22 @@
           return is_file($file_path) && in_array($file_extension, $allowed_extensions);
         });
 
-        foreach ($files as $file) {
-          $image_path = $directory . $file;
-          echo '<div class="grid-item">';
-          echo '<img src="' . htmlspecialchars($image_path) . '" alt="' . htmlspecialchars($file) . '">';
-          echo '</div>';
+        if (empty($files)) {
+          echo '<p style="color:white;">No videos available yet!</p>';
+        } else {
+          foreach ($files as $file) {
+            $video_path = $directory . $file;
+            $file_extension = strtolower(pathinfo($video_path, PATHINFO_EXTENSION));
+            echo '<div class="grid-item">';
+            echo '<video controls>
+                    <source src="' . htmlspecialchars($video_path) . '" type="video/' . $file_extension . '">
+                    Your browser does not support the video tag.
+                  </video>';
+            echo '</div>';
+          }
         }
       ?>
     </div>
-  </div>
-
-  <!-- Lightbox Modal -->
-  <div id="lightbox" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.8); justify-content:center; align-items:center; z-index:1000;">
-    <img id="lightbox-img" src="" style="max-width:90%; max-height:90%; border-radius:10px; box-shadow:0 0 20px #000;" />
   </div>
 
 </body>
